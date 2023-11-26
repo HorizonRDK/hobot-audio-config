@@ -1,0 +1,78 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+  fragment@0 {
+    target-path = "/soc/";
+    __overlay__ {
+      sndcard@6 {
+        status = "okay";
+        model = "hobotsnd6";
+        work_mode = <0>; /*0: simple mode; 1: duplex mode*/
+        dai-link@0 {
+          dai-format = "i2s";
+          // bitclock-master;
+          // frame-master;
+          //frame-inversion;
+          link-name = "hobotdailink0";
+          cpu {
+            sound-dai = <&i2s1>;
+          };
+          codec {
+            sound-dai = <&wm8960>;
+          };
+          platform {
+            sound-dai = <&i2sidma1>;
+          };
+        };
+        dai-link@1 {
+          dai-format = "i2s";
+          bitclock-master;
+          frame-master;
+          //frame-inversion;
+          link-name = "hobotdailink1";
+          cpu {
+            sound-dai = <&i2s0>;
+          };
+          codec {
+            sound-dai = <&wm8960>;
+          };
+          platform {
+            sound-dai = <&i2sidma0>;
+          };
+        };
+      };
+    };
+  };
+  fragment@1 {
+    target-path = "/soc/";
+    __overlay__ {
+      i2s@0xA5007000 {
+        share_clk = <1>;
+      };
+    };
+  };
+  fragment@2 {
+    target-path = "/soc/";
+    __overlay__ {
+      i2s@0xA5008000 {
+        ms = <4>;
+        share_clk = <1>;
+      };
+    };
+  };
+  fragment@3 {
+    target-path = "/soc/";
+    __overlay__ {
+      i2c@0xA5009000 {
+        wm8960:wm8960@0x1a{
+          compatible = "wlf,wm8960";
+          reg = <0x1a>;
+          #sound-dai-cells = <0>;
+          //wlf,shared-lrclk;
+          };
+      };
+    };
+  };
+};
+

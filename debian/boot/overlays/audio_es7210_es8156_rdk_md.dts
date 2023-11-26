@@ -1,0 +1,64 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+  fragment@0 {
+    target-path = "/soc/";
+    __overlay__ {
+      sndcard@5 {
+        model = "hobotsnd5";
+        work_mode = <0>; /*0: simple mode; 1: duplex mode*/
+        dai-link@0 {
+          dai-format = "dsp_a";
+          bitclock-master;
+          frame-master;
+          //frame-inversion;
+          link-name = "hobotdailink0";
+          cpu {
+            sound-dai = <&i2s0>;
+          };
+          codec {
+            sound-dai = <&es8156>;
+          };
+          platform {
+            sound-dai = <&i2sidma0>;
+          };
+        };
+        dai-link@1 {
+          dai-format = "dsp_a";
+          // bitclock-master;
+          // frame-master;
+          //frame-inversion;
+          link-name = "hobotdailink1";
+          cpu {
+            sound-dai = <&i2s1>;
+          };
+          codec {
+            sound-dai = <&es7210_0 0>;
+          };
+          platform {
+            sound-dai = <&i2sidma1>;
+          };
+        };
+      };
+    };
+  };
+  fragment@1 {
+    target-path = "/soc/";
+    __overlay__ {
+      i2s@0xA5007000 {
+        share_clk = <1>;
+      };
+    };
+  };
+  fragment@2 {
+    target-path = "/soc/";
+    __overlay__ {
+      i2s@0xA5008000 {
+        ms = <4>;
+        share_clk = <1>;
+      };
+    };
+  };
+};
+
