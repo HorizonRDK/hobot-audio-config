@@ -42,21 +42,21 @@
         };
       };
     };
-    fragment@1 {
-      target-path = "/soc/";
-      __overlay__ {
-        i2s@0xA5007000 {
-          share_clk = <1>;
-        };
+  };
+  fragment@1 {
+    target-path = "/soc/";
+    __overlay__ {
+      i2s@0xA5007000 {
+        share_clk = <1>;
       };
     };
-    fragment@2 {
-      target-path = "/soc/";
-      __overlay__ {
-        i2s@0xA5008000 {
-          ms = <4>;
-          share_clk = <1>;
-        };
+  };
+  fragment@2 {
+    target-path = "/soc/";
+    __overlay__ {
+      i2s@0xA5008000 {
+        ms = <4>;
+        share_clk = <1>;
       };
     };
   };
