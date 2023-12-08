@@ -1,4 +1,4 @@
 #!/bin/bash
 
-
+sudo systemctl disable example_app.service
 exit 0
