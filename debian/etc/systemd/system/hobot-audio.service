@@ -1,0 +1,12 @@
+# /etc/systemd/system/hobot-audio.service
+
+[Unit]
+Description=hobot-audio service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/audio_gadget
+
+[Install]
+WantedBy=multi-user.target
+
