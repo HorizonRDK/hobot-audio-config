@@ -13,8 +13,8 @@ typedef struct
     int tsched;
     int fragments;
     int fragment_size;
-    int rate;
-    int channels;
+    unsigned int rate;
+    unsigned int channels;
     int rewind_safeguard;
 } AudioConfig;
 
@@ -69,10 +69,10 @@ void playBlankAudio(snd_pcm_t *playback_handle)
     printf("Playing blank audio...\n");
 
     // // Write the silent sound to the PCM device
-    // if (snd_pcm_writei(playback_handle, buffer, frames) < 0)
-    // {
-    //     fprintf(stderr, "Error playing audio\n");
-    // }
+    if (snd_pcm_writei(playback_handle, buffer, frames) < 0)
+    {
+        fprintf(stderr, "Error playing audio\n");
+    }
 }
 
 void closePlaybackDevice(snd_pcm_t *playback_handle)
@@ -125,10 +125,10 @@ void recordAudio(snd_pcm_t *capture_handle)
     printf("Recording audio (not saving)...\n");
 
     // Read audio from the PCM device
-    // if (snd_pcm_readi(capture_handle, buffer, frames) < 0)
-    // {
-    //     fprintf(stderr, "Error recording audio\n");
-    // }
+    if (snd_pcm_readi(capture_handle, buffer, frames) < 0)
+    {
+        fprintf(stderr, "Error recording audio\n");
+    }
 }
 
 void closeRecordingDevice(snd_pcm_t *capture_handle)
