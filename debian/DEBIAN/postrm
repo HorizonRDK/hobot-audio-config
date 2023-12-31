@@ -1,4 +1,4 @@
 #!/bin/bash
 
-sudo systemctl disable example_app.service
+sudo systemctl disable hobot-audio.service
 exit 0

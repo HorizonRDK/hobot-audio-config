@@ -139,6 +139,61 @@ void closeRecordingDevice(snd_pcm_t *capture_handle)
 
 int main()
 {
+    const char *cur_audio_hat_path = "/etc/hobot_audio_config/cur_audio_hat";
+    FILE *cur_audio_hat_file;
+
+    // Check if the cur_audio_hat_file exists
+    if ((cur_audio_hat_file = fopen(cur_audio_hat_path, "r")) != NULL)
+    {
+        // File exists
+        fseek(cur_audio_hat_file, 0, SEEK_END);
+        long unsigned int file_size = ftell(cur_audio_hat_file);
+
+        if (file_size > 0)
+        {
+            // File is not empty
+            rewind(cur_audio_hat_file);
+
+            // Read cur_audio_hat_file content
+            char buffer[file_size + 1];
+            if (fread(buffer, 1, file_size, cur_audio_hat_file) == file_size)
+            {
+                buffer[file_size] = '\0'; // Append null character at the end
+
+                // Check if the cur_audio_hat_file content is "UNSET"
+                if (strcmp(buffer, "UNSET") == 0)
+                {
+                    printf("File exists and content is UNSET\n");
+                    fclose(cur_audio_hat_file);
+                    return 0;
+                }
+                else
+                {
+                    printf("File exists, not empty, and content is not UNSET\n");
+                }
+            }
+            else
+            {
+                fprintf(stderr, "Unable to read cur_audio_hat_file content\n");
+            }
+        }
+        else
+        {
+            // File exists but is empty
+            printf("File exists but is empty\n");
+            fclose(cur_audio_hat_file);
+            return 0;
+        }
+
+        fclose(cur_audio_hat_file);
+    }
+    else
+    {
+        // File does not exist
+        printf("File does not exist\n");
+        return 0;
+    }
+
     FILE *file = fopen("/etc/pulse/default.pa", "r");
     if (file == NULL)
     {
