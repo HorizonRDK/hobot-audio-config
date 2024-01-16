@@ -25,9 +25,9 @@
           };
         };
         dai-link@1 {
-          dai-format = "dsp_a";
-          // bitclock-master;
-          // frame-master;
+          dai-format = "i2s";
+          bitclock-master;
+          frame-master;
           //frame-inversion;
           link-name = "hobotdailink1";
           cpu {
@@ -47,7 +47,7 @@
     target-path = "/soc/";
     __overlay__ {
       i2s@0xA5007000 {
-        share_clk = <1>;
+        share_clk = <0>;
       };
     };
   };
@@ -55,8 +55,8 @@
     target-path = "/soc/";
     __overlay__ {
       i2s@0xA5008000 {
-        ms = <4>;
-        share_clk = <1>;
+        // ms = <4>;
+        share_clk = <0>;
       };
     };
   };
